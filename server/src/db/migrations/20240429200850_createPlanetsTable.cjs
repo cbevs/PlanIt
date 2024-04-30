@@ -13,7 +13,6 @@ exports.up = async (knex) => {
         table.string("imageUrl").notNullable().defaultTo("https://tinyurl.com/mrx6rpwy")
         table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
         table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
-
     })
 };
 

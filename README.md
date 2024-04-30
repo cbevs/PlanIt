@@ -23,9 +23,6 @@ This app allows users to review planets.
 - Objection.js
 - SQL
 
-## Link to Deployed Site
-<>Link to site</>
-
 ## License
 
 This program is available as open source under the terms of the MIT License.

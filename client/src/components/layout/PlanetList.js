@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import PlanetTile from "./PlanetTile.js";
 
 const PlanetList = () => {
-
     const [planets, setPlanets] = useState([])
     const getPlanetsData = async () => {
-        try{
+        try {
             const response = await fetch("/api/v1/planets")
             if(!response.ok){
                 const newError = new Error("Error in the fetch!")
@@ -12,7 +12,7 @@ const PlanetList = () => {
             }
             const responseBody = await response.json()
             setPlanets(responseBody.planets)
-        }catch(err){
+        } catch(err) {
             console.log(err)
         }
     }
@@ -22,15 +22,17 @@ const PlanetList = () => {
     }, [])
 
     const planetsArray = planets.map((planet) => {
-        return <div className="cell-small-4 planet-div" key={planet.id}>
-            {planet.name}
-            <img src={planet.imageUrl} width="50px"></img>
-        </div>
+        return <PlanetTile 
+            key={planet.id} 
+            id={planet.id}
+            name={planet.name}
+            imageUrl={planet.imageUrl}
+             />
     })
 
     return(
         <div className="grid-x">
-        {planetsArray}
+            {planetsArray}
         </div>
     )
 }
