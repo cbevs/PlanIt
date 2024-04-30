@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PlanetTile from "./PlanetTile.js";
+import NewPlanetForm from "./NewPlanetForm.js";
 
 const PlanetList = () => {
     const [planets, setPlanets] = useState([])
@@ -27,6 +28,7 @@ const PlanetList = () => {
                         key={planet.id} 
                         id={planet.id}
                         name={planet.name}
+                        description={planet.description}
                         imageUrl={planet.imageUrl}
                     />
         )
@@ -34,7 +36,9 @@ const PlanetList = () => {
 
     return(
         <div className="grid-x">
+            <img className={"logo"} src="https://i.imgur.com/ANjRDVK.png" />
             {planetsArray}
+            <NewPlanetForm setPlanets={setPlanets} planets={planets}/>
         </div>
     )
 }
