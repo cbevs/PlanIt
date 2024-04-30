@@ -9,7 +9,7 @@ const TopBar = ({ user }) => {
       <Link to="/user-sessions/new" className="home-text sign-state-button">Sign In</Link>
     </li>,
     <li key="sign-up">
-      <Link to="/users/new" className="button sign-up-button">
+      <Link to="/users/new" className="button authentication-button">
         Sign Up
       </Link>
     </li>,
@@ -25,7 +25,7 @@ const TopBar = ({ user }) => {
     <div className="top-bar">
       <div className="top-bar-left">
         <ul className="menu">
-          <li><img src="https://i.imgur.com/ANjRDVK.png" className="logo" width="60px"/></li>
+          <li><img src="https://i.imgur.com/ANjRDVK.png" className="logo"/></li>
           <li className="menu-text">PlanIt</li>
           <li>
             <Link to="/" className="home-text">Home</Link>

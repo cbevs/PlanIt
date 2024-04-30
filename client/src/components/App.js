@@ -32,9 +32,10 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/" component={PlanetList} />
+        <Route exact path="/planets" component={PlanetList} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact path="/:id" component={PlanetShow} />
+        <Route exact path="/planets/:id" component={PlanetShow} />
       </Switch>
     </Router>
   );

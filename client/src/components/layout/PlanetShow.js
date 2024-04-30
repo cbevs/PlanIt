@@ -25,13 +25,10 @@ const PlanetShow = (props) => {
 
   return (
     <div className="planet-show">
-      <img src={planet.imageUrl} width="100px" className="planet-image" alt="image of planet" />
+      <img src={planet.imageUrl} className="planet-image" alt="image of planet" />
       <h1>{planet.name}</h1>
       <h4>{planet.description}</h4>
     </div>
   )
 }
-
 export default PlanetShow
-
-

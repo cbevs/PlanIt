@@ -52,6 +52,7 @@ h4 {
   padding: 0;
   position: relative;
   top: -10px;
+  width: 60px;
 }
 
 .top-bar {
@@ -79,12 +80,12 @@ h4 {
   color: #fff;
 }
 
-.sign-up-button, .sign-state-button { 
+.authentication-button, .sign-state-button { 
   background-color: #800080;
   border-radius: 10px;
 }
 
-.sign-up-button:hover, .sign-state-button:hover {
+.authentication-button:hover, .sign-state-button:hover {
   background-color: #863a86;
   color: #fff;
 }
@@ -92,4 +93,5 @@ h4 {
 .planet-image {
   position: relative;
   top: -20px;
+  width: 100px;
 }
