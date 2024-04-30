@@ -22,12 +22,14 @@ const PlanetList = () => {
     }, [])
 
     const planetsArray = planets.map((planet) => {
-        return <PlanetTile 
-            key={planet.id} 
-            id={planet.id}
-            name={planet.name}
-            imageUrl={planet.imageUrl}
-             />
+        return (
+                    <PlanetTile 
+                        key={planet.id} 
+                        id={planet.id}
+                        name={planet.name}
+                        imageUrl={planet.imageUrl}
+                    />
+        )
     })
 
     return(
