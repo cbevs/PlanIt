@@ -33,7 +33,7 @@ const PlanetList = () => {
     })
 
     return(
-        <div className="grid-x">
+        <div className="grid-x align-center planet-list">
             {planetsArray}
         </div>
     )
