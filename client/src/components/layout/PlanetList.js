@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PlanetTile from "./PlanetTile.js";
 import NewPlanetForm from "./NewPlanetForm.js";
 
-const PlanetList = () => {
+const PlanetList = (props) => {
     const [planets, setPlanets] = useState([])
     const getPlanetsData = async () => {
         try {
@@ -21,7 +21,7 @@ const PlanetList = () => {
     useEffect(() => {
         getPlanetsData()
     }, [])
-
+   
     const planetsArray = planets.map((planet) => {
         return (
                     <PlanetTile 
@@ -35,11 +35,9 @@ const PlanetList = () => {
     })
 
     return(
-
         <div className="grid-x align-center planet-list">
-            <img className={"logo"} src="https://i.imgur.com/ANjRDVK.png" />
             {planetsArray}
-            <NewPlanetForm setPlanets={setPlanets} planets={planets}/>
+            {props.user ? <NewPlanetForm setPlanets={setPlanets} planets={planets}/> : null }
         </div>
     )
 }
