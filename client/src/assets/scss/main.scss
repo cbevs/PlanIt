@@ -1,6 +1,7 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu&display=swap');
 // place global css here
 *,
 *::before,
@@ -13,10 +14,84 @@
   tab-size: 4;
 }
 
+body {
+  background-color: #161637;
+  font-family: "Ubuntu", "Arial", sans-serif;
+}
+
+.form-input {
+  border-radius: 10px;
+}
+
 .planet-div {
   padding: 20px;
+  font-size: 30px;
+}
+
+.sign-in-page, .registration-div, .planet-list, .planet-show{
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fff;
+  margin-top: 20px;
+  width: 60%;
+  height: 100vh;
+  border-radius: 10px;
+  font-family: "Ubuntu", "Arial", sans-serif;
+}
+
+h1 {
+  font-family: "Ubuntu", "Arial", sans-serif;
+}
+
+h4 {
+  font-family: "Ubuntu", "Arial", sans-serif;
 }
 
 .logo {
-  width: 10%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -10px;
+  width: 60px;
+}
+
+.top-bar {
+  background-color: #ffa500;
+}
+
+.top-bar ul {
+  background-color: #ffa500;
+}
+
+.menu-text {
+  color: #000;
+}
+
+.home-text {
+  color: #000;
+}
+
+.home-text:hover {
+  color: #800080;
+}
+
+.sign-state-button {
+  margin-right: 10px;
+  color: #fff;
+}
+
+.authentication-button, .sign-state-button { 
+  background-color: #800080;
+  border-radius: 10px;
+}
+
+.authentication-button:hover, .sign-state-button:hover {
+  background-color: #863a86;
+  color: #fff;
+}
+
+.planet-image {
+  position: relative;
+  top: -20px;
+  width: 100px;
 }

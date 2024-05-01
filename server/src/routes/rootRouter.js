@@ -7,11 +7,14 @@ import planetsRouter from "./api/v1/planetsRouter.js";
 
 const rootRouter = new express.Router();
 
-rootRouter.use("/", clientRouter);
+rootRouter.get("/", (req, res) => {
+  res.redirect("/planets")
+})
+
 rootRouter.use("/api/v1/user-sessions", userSessionsRouter);
 rootRouter.use("/api/v1/users", usersRouter);
 rootRouter.use("/api/v1/planets", planetsRouter)
-
+rootRouter.use("/", clientRouter)
 // place your server-side routes here
 
 export default rootRouter;

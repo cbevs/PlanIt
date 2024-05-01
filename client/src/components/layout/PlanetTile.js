@@ -1,14 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom"
 
 const PlanetTile = ({ id, name, imageUrl, description }) => {
     return(
-        <div className="cell-small-4 planet-div" key={id}>
-            <img src={imageUrl} width="50px"></img>
-            {name}
-            <h4>Description: </h4>
-            {description}
-            
-        </div>
+        <Link to={`/planets/${id}`}>
+            <div className="cell-small-3 planet-div">
+                <img src={imageUrl} width="75px"></img>
+                <p>{name}</p>
+            </div>
+        </Link>
     )
 }
 
