@@ -9,11 +9,10 @@ const planetReviewsRouter = new express.Router({ mergeParams: true })
 planetReviewsRouter.post("/", async (req, res) => {
   const requestBody = req.body
   const formInput = cleanUserInput(requestBody)
-  const { body, userId } = formInput
+  const { body, userId, rating } = formInput
   const { planetId } = req.params
-
   try {
-    const review = await Review.query().insertAndFetch({ body, planetId, userId })
+    const review = await Review.query().insertAndFetch({ body, planetId, userId, rating })
     return res.status(200).json({ review: review })
   } catch (error) {
     if (error instanceof ValidationError) {

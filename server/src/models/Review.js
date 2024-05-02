@@ -8,11 +8,12 @@ class Review extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["body"],
+      required: ["rating"],
       properties: {
-        body: { type: "string", minLength: 1 },
-        planetId: {type: ["integer", "string"]}
-      }
+        rating: { type: "integer" },
+        body: { type: "string" },
+        planetId: { type: ["integer", "string"] },
+      },
     }
   }
 
@@ -24,17 +25,17 @@ class Review extends Model {
         modelClass: Planet,
         join: {
           from: "reviews.planetId",
-          to: "planets.id"
-        }
+          to: "planets.id",
+        },
       },
       user: {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
           from: "reviews.userId",
-          to: "users.id"
-        }
-      }
+          to: "users.id",
+        },
+      },
     }
   }
 }

@@ -48,7 +48,7 @@ const PlanetShow = (props) => {
   useEffect(() => {
     getPlanet()
   }, [])
-
+  
   return (
     <div className="planet-show">
       <img src={planet.imageUrl} className="planet-image" alt="image of planet" />

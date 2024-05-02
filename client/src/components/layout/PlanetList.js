@@ -36,7 +36,6 @@ const PlanetList = () => {
 
   return (
     <div className="grid-x align-center planet-list">
-      <img className={"logo"} src="https://i.imgur.com/ANjRDVK.png" />
       {planetsArray}
       <NewPlanetForm setPlanets={setPlanets} planets={planets} />
     </div>

@@ -2,7 +2,8 @@ import React, { useState } from "react"
 
 const NewReviewForm = ({ postReview }) => {
   const [newReview, setNewReview] = useState({
-    body: ""
+    body: "",
+    rating: 0
   })
 
   const handleInputChange = event => {
@@ -20,7 +21,8 @@ const NewReviewForm = ({ postReview }) => {
 
   const clearForm = () => {
     setNewReview({
-      body: ""
+      body: "",
+      rating: 0
     })
   }
 
@@ -37,6 +39,19 @@ const NewReviewForm = ({ postReview }) => {
             value={newReview.body}
             className="form-input"
           />
+        </label>
+        <label>
+          Rating:
+          <select name="rating" value={newReview.rating}
+           onChange={handleInputChange}
+          >
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
         </label>
         <input type="submit" value="Submit Review" />
       </form>
