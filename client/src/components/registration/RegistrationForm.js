@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Dropzone from "react-dropzone"
 import config from "../../config";
 
 import ErrorList from "../layout/ErrorList";
@@ -11,6 +11,7 @@ const RegistrationForm = () => {
     email: "",
     password: "",
     passwordConfirmation: "",
+    image: {}
   });
 
   const [errors, setErrors] = useState({});
@@ -58,17 +59,27 @@ const RegistrationForm = () => {
     return false;
   };
 
+  const handleProfileImageUpload = (acceptedImage) => {
+    setUserPayload({
+      ...userPayload,
+      image: acceptedImage[0]
+    })
+  }
+
   const onSubmit = async (event) => {
     event.preventDefault();
-
+    const newUserBody = new FormData()
+    newUserBody.append("email", userPayload.email)
+    newUserBody.append("password", userPayload.password)
+    newUserBody.append("image", userPayload.image)
     try {
       if (validateInput(userPayload)) {
         const response = await fetch("/api/v1/users", {
           method: "POST",
-          body: JSON.stringify(userPayload),
           headers: new Headers({
-            "Content-Type": "application/json",
+            "Accept": "image/jpeg"
           }),
+          body: newUserBody,
         });
         if (!response.ok) {
           if (response.status === 422) {
@@ -136,6 +147,16 @@ const RegistrationForm = () => {
             <FormError error={errors.passwordConfirmation} />
           </label>
         </div>
+        <Dropzone onDrop={handleProfileImageUpload}>
+          {({getRootProps, getInputProps}) => (
+            <section className="drag-and-drop">
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Upload Your Profile Image Here - drag and drop or click to upload</p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
         <div>
           <input type="submit" className="button authentication-button" value="Register" />
         </div>
