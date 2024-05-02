@@ -10,7 +10,7 @@ const PlanetShow = (props) => {
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
-        throw (error)
+        throw error
       }
       const responseBody = await response.json()
       setPlanet(responseBody.planet)
