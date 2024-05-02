@@ -2,10 +2,13 @@ import express from "express";
 import { Planet } from "../../../models/index.js";
 import objection from "objection";
 import cleanUserInput from "../../../services/cleanUserInput.js";
+import planetReviewsRouter from "./planetReviewsRouter.js"
 
 const { ValidationError } = objection;
 
 const planetsRouter = new express.Router();
+
+planetsRouter.use("/:planetId/reviews", planetReviewsRouter)
 
 planetsRouter.get("/", async (req, res) => {
   try {
@@ -20,8 +23,12 @@ planetsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
   try {
     const planet = await Planet.query().findById(id)
+    const relatedReviews = await planet.$relatedQuery("reviews")
+    planet.reviews = relatedReviews
+    console.log(planet)
     return res.status(200).json({ planet: planet })
   } catch(error) {
+    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })
