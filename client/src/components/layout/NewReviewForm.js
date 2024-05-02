@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 const NewReviewForm = ({ postReview }) => {
   const [newReview, setNewReview] = useState({
-    reviewText: ""
+    body: ""
   })
 
   const handleInputChange = event => {
@@ -20,27 +20,27 @@ const NewReviewForm = ({ postReview }) => {
 
   const clearForm = () => {
     setNewReview({
-      reviewText: ""
+      body: ""
     })
   }
 
   return (
-    <div>
+    <>
       <h1>Add a Review to this Planet</h1>
       <form onSubmit={handleSubmit} className="new-review-form">
         <label>
           Review:
           <input
             type="text"
-            name="reviewText"
+            name="body"
             onChange={handleInputChange}
-            value={newReview.reviewText}
+            value={newReview.body}
             className="form-input"
           />
         </label>
         <input type="submit" value="Submit Review" />
       </form>
-    </div>
+    </>
   )
 }
 

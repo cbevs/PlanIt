@@ -10,7 +10,7 @@ class Seeder {
     await Planet.query().insert({name: "Saturn", description: "Planet with rings!"})
 
     const pluto = await Planet.query().findOne("name", "Pluto")
-    await pluto.$relatedQuery("reviews").insert({reviewText: "Super cold, I'm not going there again.."})
+    await pluto.$relatedQuery("reviews").insert({body: "Super cold, I'm not going there again.."})
 
     console.log("Done!");
     await connection.destroy();

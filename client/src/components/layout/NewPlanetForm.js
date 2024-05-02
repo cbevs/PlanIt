@@ -42,7 +42,6 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
       } else {
         const body = await response.json()
         const newPlanetEntry = body.planet
-        console.log(newPlanetEntry)
         setPlanets([...planets, newPlanetEntry])
       }
     } catch (error) {

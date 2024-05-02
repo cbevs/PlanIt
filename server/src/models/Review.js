@@ -8,16 +8,16 @@ class Review extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["reviewText"],
+      required: ["body"],
       properties: {
-        reviewText: { type: "string", minLength: 1 },
+        body: { type: "string", minLength: 1 },
         planetId: {type: ["integer", "string"]}
       }
     }
   }
 
   static get relationMappings() {
-    const { Planet } = require("./index.js")
+    const { Planet, User } = require("./index.js")
     return {
       planet: {
         relation: Model.BelongsToOneRelation,
@@ -25,6 +25,14 @@ class Review extends Model {
         join: {
           from: "reviews.planetId",
           to: "planets.id"
+        }
+      },
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: "reviews.userId",
+          to: "users.id"
         }
       }
     }

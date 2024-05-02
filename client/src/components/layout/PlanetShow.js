@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react"
 import ReviewList from "./ReviewList"
 import NewPlanetForm from "./NewPlanetForm"
 import NewReviewForm from "./NewReviewForm"
+import { useParams } from "react-router-dom"
 
 const PlanetShow = (props) => {
   const [planet, setPlanet] = useState({
     name: "",
-    reviews: []
+    reviews: [],
   })
 
-  const planetId = props.match.params.id
+  const params = useParams()
+  const planetId = params.id
   const getPlanet = async () => {
     try {
       const response = await fetch(`/api/v1/planets/${planetId}`)
@@ -26,13 +28,14 @@ const PlanetShow = (props) => {
   }
 
   const postReview = async (newReviewData) => {
+    newReviewData.userId = props.user.id
     try {
       const response = await fetch(`/api/v1/planets/${planetId}/reviews`, {
         method: "POST",
         headers: new Headers({
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         }),
-        body: JSON.stringify(newReviewData)
+        body: JSON.stringify(newReviewData),
       })
       const responseBody = await response.json()
       const newReview = responseBody.review
@@ -40,7 +43,6 @@ const PlanetShow = (props) => {
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
     }
-
   }
 
   useEffect(() => {
@@ -52,8 +54,8 @@ const PlanetShow = (props) => {
       <img src={planet.imageUrl} className="planet-image" alt="image of planet" />
       <h1>{planet.name}</h1>
       <h4>{planet.description}</h4>
-      <ReviewList reviews={planet.reviews} id={planet.id} />
-      <NewReviewForm postReview={postReview} />
+      <ReviewList reviews={planet.reviews} />
+      { props.user ? <NewReviewForm postReview={postReview} /> : null }
     </div>
   )
 }
