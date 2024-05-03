@@ -18,7 +18,7 @@ class Review extends Model {
   }
 
   static get relationMappings() {
-    const { Planet, User } = require("./index.js")
+    const { Planet, User, Vote } = require("./index.js")
     return {
       planet: {
         relation: Model.BelongsToOneRelation,
@@ -34,6 +34,14 @@ class Review extends Model {
         join: {
           from: "reviews.userId",
           to: "users.id",
+        },
+      },
+      votes: {
+        relation: Model.HasManyRelation,
+        modelClass: Vote,
+        join: {
+          from: "reviews.id",
+          to: "votes.reviewId",
         },
       },
     }
