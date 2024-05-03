@@ -6,14 +6,14 @@ const unique = uniqueFactory({
     identifiers: ["id"]
 })
 
-class Planet extends unique(Model){
+class Planet extends unique(Model) {
 
-    static get tableName(){
+    static get tableName() {
         return "planets"
     }
 
-    static get jsonSchema(){
-        return{
+    static get jsonSchema() {
+        return {
             type: "object",
             required: ["name"],
             properties: {
@@ -22,6 +22,20 @@ class Planet extends unique(Model){
             }
         }
     }
-} 
+
+    static get relationMappings() {
+      const { Review } = require("./index.js")
+      return {
+        reviews: {
+          relation: Model.HasManyRelation,
+          modelClass: Review,
+          join: {
+            from: "planets.id",
+            to: "reviews.planetId"
+          }
+        }
+      }
+    }
+}
 
 module.exports = Planet

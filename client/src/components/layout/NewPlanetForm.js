@@ -9,7 +9,7 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
       ...newPlanet,
       [event.currentTarget.name]: event.currentTarget.value,
     })
-  };
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -17,8 +17,8 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
     setNewPlanet({
       name: "",
       description: "",
-    });
-  };
+    })
+  }
 
   const postPlanet = async (newPlanetData) => {
     try {
@@ -28,27 +28,26 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
           "Content-Type": "application/json",
         }),
         body: JSON.stringify(newPlanetData),
-      });
+      })
       if (!response.ok) {
         if (response.status === 422) {
           const body = await response.json()
           const newErrors = translateServerErrors(body.errors)
-          return setErrors(newErrors);
+          return setErrors(newErrors)
         } else {
           const errorMessage = `${response.status} (${response.statusText})`
-          const error = new Error(errorMessage);
-          throw error;
+          const error = new Error(errorMessage)
+          throw error
         }
       } else {
         const body = await response.json()
         const newPlanetEntry = body.planet
-        console.log(newPlanetEntry)
         setPlanets([...planets, newPlanetEntry])
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <div>
@@ -75,7 +74,7 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
         <input type="submit" className="submit-form-button" />
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default NewPlanetForm;
+export default NewPlanetForm

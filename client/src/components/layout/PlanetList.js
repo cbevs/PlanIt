@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import PlanetTile from "./PlanetTile.js";
-import NewPlanetForm from "./NewPlanetForm.js";
+import React, { useState, useEffect } from "react"
+import PlanetTile from "./PlanetTile.js"
+import NewPlanetForm from "./NewPlanetForm.js"
 
 const PlanetList = (props) => {
     const [planets, setPlanets] = useState([])
@@ -16,7 +16,7 @@ const PlanetList = (props) => {
         } catch(err) {
             console.log(err)
         }
-    }
+      }
 
     useEffect(() => {
         getPlanetsData()
@@ -40,6 +40,6 @@ const PlanetList = (props) => {
             {props.user ? <NewPlanetForm setPlanets={setPlanets} planets={planets}/> : null }
         </div>
     )
-}
+  }
 
 export default PlanetList
