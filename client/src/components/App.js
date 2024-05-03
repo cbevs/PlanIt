@@ -31,8 +31,12 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/" component={PlanetList} />
-        <Route exact path="/planets" component={PlanetList} />
+        <Route exact path="/">
+          <PlanetList user={currentUser} />
+        </Route>
+        <Route exact path="/planets">
+          <PlanetList user={currentUser} />
+        </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/planets/:id">

@@ -79,13 +79,18 @@ h4 {
   margin-right: 10px;
   color: #fff;
 }
+.submit-form-button {
+  border: none;
+  color: #fff;
+  padding: 10px;
+}
 
-.authentication-button, .sign-state-button { 
+.authentication-button, .sign-state-button, .submit-form-button { 
   background-color: #800080;
   border-radius: 10px;
 }
 
-.authentication-button:hover, .sign-state-button:hover {
+.authentication-button:hover, .sign-state-button:hover, .submit-form-button:hover {
   background-color: #863a86;
   color: #fff;
 }
@@ -100,4 +105,21 @@ h4 {
   width: 75%;
   margin: 20px auto;
   text-align: center;
+}
+
+.planet-list-image {
+  width: 100px;
+}
+
+.user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.drag-and-drop {
+  background-color: #d4d4d4;
+  padding: 10px;
+  margin-bottom: 5px;
 }

@@ -1,14 +1,18 @@
 import express from "express";
 import { ValidationError } from "objection";
-
 import { User } from "../../../models/index.js";
+import uploadImage from "../../../services/uploadImage.js";
 
 const usersRouter = new express.Router();
 
-usersRouter.post("/", async (req, res) => {
-  const { email, password } = req.body;
+usersRouter.post("/",uploadImage.single("image"), async (req, res) => {
   try {
-    const persistedUser = await User.query().insertAndFetch({ email, password });
+    const { body } = req
+    const data = {
+      ...body,
+      image: req.file.location,
+    }
+    const persistedUser = await User.query().insertAndFetch(data);
     return req.login(persistedUser, () => {
       return res.status(201).json({ user: persistedUser });
     });
@@ -19,5 +23,6 @@ usersRouter.post("/", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+
 
 export default usersRouter;

@@ -16,6 +16,7 @@ const TopBar = ({ user }) => {
   ];
 
   const authenticatedListItems = [
+    user ? <li><img src={user.image} className="user-image"></img></li> : null,
     <li key="sign-out">
       <SignOutButton />
     </li>,
