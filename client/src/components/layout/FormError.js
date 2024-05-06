@@ -1,10 +1,10 @@
-import React from "react";
+import React from "react"
 
 const FormError = ({ error = "" }) => {
   if (error !== "") {
-    return <span className="form-error is-visible">{error}</span>;
+    return <span className="form-error is-visible">{error}</span>
   }
-  return null;
-};
+  return null
+}
 
-export default FormError;
+export default FormError

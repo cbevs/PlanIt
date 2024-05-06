@@ -15,5 +15,7 @@ exports.up = async (knex) => {
  * @param {Knex} knex
  */
 exports.down = async (knex) => {
-  return knex.schema.dropColumnIfExists("image")
+  return knex.schema.alterTable("users", (table) => {
+    table.dropColumn("image")
+  })
 };

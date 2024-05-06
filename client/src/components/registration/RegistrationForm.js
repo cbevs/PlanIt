@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Dropzone from "react-dropzone"
 import config from "../../config";
 
-import ErrorList from "../layout/ErrorList";
-import FormError from "../layout/FormError";
-import translateServerErrors from "../../services/translateServerErrors";
+import ErrorList from "../layout/ErrorList"
+import FormError from "../layout/FormError"
+import translateServerErrors from "../../services/translateServerErrors"
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
@@ -12,52 +12,52 @@ const RegistrationForm = () => {
     password: "",
     passwordConfirmation: "",
     image: {}
-  });
+  })
 
-  const [errors, setErrors] = useState({});
-  const [serverErrors, setServerErrors] = useState({});
-  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [errors, setErrors] = useState({})
+  const [serverErrors, setServerErrors] = useState({})
+  const [shouldRedirect, setShouldRedirect] = useState(false)
 
   const validateInput = (payload) => {
-    setErrors({});
-    setServerErrors({});
-    const { email, password, passwordConfirmation } = payload;
-    const emailRegexp = config.validation.email.regexp.emailRegex;
-    let newErrors = {};
+    setErrors({})
+    setServerErrors({})
+    const { email, password, passwordConfirmation } = payload
+    const emailRegexp = config.validation.email.regexp.emailRegex
+    let newErrors = {}
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
         email: "is invalid",
-      };
+      }
     }
 
     if (password.trim() == "") {
       newErrors = {
         ...newErrors,
         password: "is required",
-      };
+      }
     }
 
     if (passwordConfirmation.trim() === "") {
       newErrors = {
         ...newErrors,
         passwordConfirmation: "is required",
-      };
+      }
     } else {
       if (passwordConfirmation !== password) {
         newErrors = {
           ...newErrors,
           passwordConfirmation: "does not match password",
-        };
+        }
       }
     }
 
-    setErrors(newErrors);
+    setErrors(newErrors)
     if (Object.keys(newErrors).length === 0) {
-      return true;
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
   const handleProfileImageUpload = (acceptedImage) => {
     setUserPayload({
@@ -83,30 +83,30 @@ const RegistrationForm = () => {
         });
         if (!response.ok) {
           if (response.status === 422) {
-            const body = await response.json();
-            const newServerErrors = translateServerErrors(body.errors);
-            return setServerErrors(newServerErrors);
+            const body = await response.json()
+            const newServerErrors = translateServerErrors(body.errors)
+            return setServerErrors(newServerErrors)
           }
-          const errorMessage = `${response.status} (${response.statusText})`;
-          const error = new Error(errorMessage);
-          throw error;
+          const errorMessage = `${response.status} (${response.statusText})`
+          const error = new Error(errorMessage)
+          throw error
         }
-        return setShouldRedirect(true);
+        return setShouldRedirect(true)
       }
     } catch (err) {
-      console.error(`Error in fetch: ${err.message}`);
+      console.error(`Error in fetch: ${err.message}`)
     }
-  };
+  }
 
   const onInputChange = (event) => {
     setUserPayload({
       ...userPayload,
       [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
+    })
+  }
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = "/"
   }
 
   return (
@@ -117,7 +117,13 @@ const RegistrationForm = () => {
         <div>
           <label>
             Email
-            <input type="text" className="form-input" name="email" value={userPayload.email} onChange={onInputChange} />
+            <input
+              type="text"
+              className="form-input"
+              name="email"
+              value={userPayload.email}
+              onChange={onInputChange}
+            />
             <FormError error={errors.email} />
           </label>
         </div>
@@ -162,7 +168,7 @@ const RegistrationForm = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default RegistrationForm;
+export default RegistrationForm
