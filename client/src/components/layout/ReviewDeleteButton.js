@@ -32,7 +32,9 @@ const ReviewDeleteButton = ({ user, review, setPlanet, planet }) => {
 
   return(
     <>
-      { user.id === review.userId ? <button className="delete-button" onClick={deleteReview}>Delete Review</button> : null }
+      { user.id === review.userId 
+        ? <button className="delete-button" onClick={deleteReview}>Delete Review</button> 
+        : null }
     </>
   )
 }
