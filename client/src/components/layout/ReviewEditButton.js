@@ -4,10 +4,7 @@ import { Link } from "react-router-dom"
 const ReviewEditButton = ({ user, review }) => {
   return(
     <>
-      { user.id === review.userId ? <Link to={{
-          pathname: "/edit-review",
-          state: {user: user, review: review }
-          }} className="edit-button">Edit Review</Link> : null }
+      { user.id === review.userId ? <Link to={`/reviews/${review.id}/edit`} className="edit-button">Edit Review</Link> : null}
     </>
   )
 }

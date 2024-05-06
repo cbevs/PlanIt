@@ -1,32 +1,50 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Redirect } from "react-router-dom"
 import ErrorList from "./ErrorList.js"
 import translateServerErrors from "../../services/translateServerErrors.js"
 
 const updateReviewForm = (props) => {
-  const [updatedReview, setUpdatedReview] = useState({
-    body: "",
-    rating: ""
-  })
-
   const [errors, setErrors] = useState([])
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const review = props.location.state.review
-  
-  const handleInputChange = event => {
+  const [updatedReview, setUpdatedReview] = useState({
+    body: "",
+    rating: "",
+  })
+  const reviewId = props.match.params.id
+
+  useEffect(() => {
+    getReview()
+  }, [])
+
+  const handleInputChange = (event) => {
     setUpdatedReview({
       ...updatedReview,
-      [event.currentTarget.name]: event.currentTarget.value
+      [event.currentTarget.name]: event.currentTarget.value,
     })
+  }
+
+  const getReview = async () => {
+    try {
+      const response = await fetch(`/api/v1/reviews/${reviewId}`)
+      if (!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw error
+      }
+      const responseBody = await response.json()
+      setUpdatedReview(responseBody.review)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    updatedReview.reviewId = review.id
+    updatedReview.reviewId = reviewId
 
     try {
-      const response = await fetch(`/api/v1/planets/${review.planetId}/reviews/edit-review`, {
-        method: "POST",
+      const response = await fetch(`/api/v1/reviews/${reviewId}`, {
+        method: "PATCH",
         headers: new Headers({
           "Content-Type": "application/json",
         }),
@@ -49,20 +67,13 @@ const updateReviewForm = (props) => {
     }
   }
 
-  const clearForm = () => {
-    setUpdatedReview({
-      body: "",
-      rating: ""
-    })
-  }
-
-  if(shouldRedirect){
-    return <Redirect push to={`/planets/${review.planetId}`} />
+  if (shouldRedirect) {
+    return <Redirect push to={`/planets/${updatedReview.planetId}`} />
   }
 
   return (
     <div className="edit-planet-page">
-      <h1>Update your review</h1>
+      <h1>Update Your Review</h1>
       <ErrorList errors={errors} />
       <form onSubmit={handleSubmit} className="new-review-form">
         <label>
@@ -73,16 +84,15 @@ const updateReviewForm = (props) => {
             onChange={handleInputChange}
             value={updatedReview.body}
             className="form-input"
-            placeholder={review.body}
           />
         </label>
         <label>
           Rating:
-          <select name="rating" 
-          value={updatedReview.rating}
-          onChange={handleInputChange} 
-          placeholder={review.rating}
-          className="form-input"
+          <select
+            name="rating"
+            value={updatedReview.rating}
+            onChange={handleInputChange}
+            className="form-input"
           >
             <option value="">Select Rating</option>
             <option value="0">0</option>
@@ -95,7 +105,6 @@ const updateReviewForm = (props) => {
         </label>
         <input type="submit" className="submit-form-button" value="Submit Review" />
       </form>
-      <button className="clear-button" onClick={clearForm}>Clear Form</button>
     </div>
   )
 }

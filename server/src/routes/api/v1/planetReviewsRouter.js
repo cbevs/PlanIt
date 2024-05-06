@@ -6,34 +6,6 @@ import { Review } from "../../../models/index.js"
 
 const planetReviewsRouter = new express.Router({ mergeParams: true })
 
-planetReviewsRouter.post("/edit-review", async (req, res) => {
-  const requestBody = req.body
-  const formInput = cleanUserInput(requestBody)
-  const { body, rating, reviewId } = formInput
-  console.log(formInput)
- 
-  try {
-    const review = await Review.query().update({ body, rating }).where("id", reviewId)
-    return res.status(200).json({ review: review })
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      return res.status(422).json({ errors: error.data })
-    } else {
-      return res.status(500).json({ errors: error })
-    }
-  }
-})
-
-planetReviewsRouter.delete("/delete-review", async (req,res) => {
-  const { reviewId } = req.body
-  try{
-    await Review.query().deleteById(reviewId)
-    return res.status(200).json({})
-  } catch (error){
-    return res.status(500).json({ errors: error })
-  }
-})
-
 planetReviewsRouter.post("/", async (req, res) => {
   const requestBody = req.body
   const formInput = cleanUserInput(requestBody)

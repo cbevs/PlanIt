@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 
-const ReviewDeleteButton = ({ user, review, getPlanet }) => {
-  
+const ReviewDeleteButton = ({ user, review, setPlanet, planet }) => {
   const deleteReview = async (event) => {
     event.preventDefault()
-    const reviewBody = {
-      reviewId: review.id,
-    }
     try {
-      const response = await fetch(`/api/v1/planets/${review.planetId}/reviews/delete-review`, {
+      const response = await fetch(`/api/v1/reviews/${review.id}`, {
         method: "DELETE",
         headers: new Headers({
           "Content-Type": "application/json",
-        }),
-        body: JSON.stringify(reviewBody),
+        })
       })
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
         throw (error)
       }
-      getPlanet()
+
+      const newReviewArray = planet.reviews.filter(reviewObject => {
+        if (review.id !== reviewObject.id ) {
+          return reviewObject
+        }
+      })
+
+      setPlanet({ ...planet, reviews: newReviewArray })
+      
+    
     } catch (error) {
       console.error(error)
     }

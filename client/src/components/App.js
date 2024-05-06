@@ -11,7 +11,7 @@ import SignInForm from "./authentication/SignInForm"
 import TopBar from "./layout/TopBar"
 import PlanetList from "./layout/PlanetList"
 import PlanetShow from "./layout/PlanetShow"
-import updateReviewForm from "./layout/UpdateReviewForm"
+import UpdateReviewForm from "./layout/UpdateReviewForm"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -43,7 +43,7 @@ const App = (props) => {
         <Route exact path="/planets/:id">
           <PlanetShow user={currentUser} />
         </Route>
-        <Route exact path="/edit-review" component={updateReviewForm}/>
+        <Route exact path="/reviews/:id/edit" component={UpdateReviewForm}/>
       </Switch>
     </Router>
   )
