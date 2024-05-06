@@ -24,7 +24,6 @@ const ReviewDeleteButton = ({ user, review, setPlanet, planet }) => {
 
       setPlanet({ ...planet, reviews: newReviewArray })
       
-    
     } catch (error) {
       console.error(error)
     }
