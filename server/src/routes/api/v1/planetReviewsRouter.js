@@ -15,6 +15,7 @@ planetReviewsRouter.post("/", async (req, res) => {
     const review = await Review.query().insertAndFetch({ body, planetId, userId, rating })
     return res.status(200).json({ review: review })
   } catch (error) {
+    console.log(error.data)
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
     } else {

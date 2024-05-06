@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react"
 import ReviewList from "./ReviewList"
-import NewPlanetForm from "./NewPlanetForm"
 import NewReviewForm from "./NewReviewForm"
 import { useParams } from "react-router-dom"
+import ErrorList from "./ErrorList"
+import translateServerErrors from "../../services/translateServerErrors"
 
 const PlanetShow = (props) => {
   const [planet, setPlanet] = useState({
     name: "",
     reviews: [],
   })
+  const [errors, setErrors] = useState([])
 
   const params = useParams()
   const planetId = params.id
@@ -37,9 +39,21 @@ const PlanetShow = (props) => {
         }),
         body: JSON.stringify(newReviewData),
       })
+      if (!response.ok) {
+        if (response.status === 422) {
+          const body = await response.json()
+          const newErrors = translateServerErrors(body.errors)
+          return setErrors(newErrors)
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`
+          const error = new Error(errorMessage)
+          throw error
+        }
+      }
       const responseBody = await response.json()
       const newReview = responseBody.review
       setPlanet({ ...planet, reviews: [...planet.reviews, newReview] })
+      setErrors([])
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
     }
@@ -54,8 +68,9 @@ const PlanetShow = (props) => {
       <img src={planet.imageUrl} className="planet-image" alt="image of planet" />
       <h1>{planet.name}</h1>
       <h4>{planet.description}</h4>
-      <ReviewList reviews={planet.reviews} />
+      <ReviewList reviews={planet.reviews} user={props.user} planet={planet} setPlanet={setPlanet} />
       { props.user ? <NewReviewForm postReview={postReview} /> : null }
+      <ErrorList errors={errors} />
     </div>
   )
 }

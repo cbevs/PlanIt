@@ -11,7 +11,6 @@ class Review extends Model {
       required: ["rating"],
       properties: {
         rating: { type: "integer" },
-        body: { type: "string" },
         planetId: { type: ["integer", "string"] },
       },
     }

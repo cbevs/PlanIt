@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
 import translateServerErrors from "../../services/translateServerErrors.js"
+import ErrorList from "./ErrorList.js"
 
 const NewPlanetForm = ({ planets, setPlanets }) => {
   const [newPlanet, setNewPlanet] = useState({ name: "", description: "" })
+  const[errors, setErrors] = useState([])
 
   const handleInputChange = (event) => {
     setNewPlanet({
@@ -43,6 +45,7 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
         const body = await response.json()
         const newPlanetEntry = body.planet
         setPlanets([...planets, newPlanetEntry])
+        setErrors([])
       }
     } catch (error) {
       console.log(error)
@@ -52,6 +55,7 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
   return (
     <div>
       <h4>Add a New Planet to Review</h4>
+      <ErrorList errors={errors} />
       <form onSubmit={handleSubmit}>
         <label>Name:
           <input 

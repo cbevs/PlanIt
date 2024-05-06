@@ -6,6 +6,9 @@ const cleanUserInput = (formInput) => {
   })
   const submittedRating = parseInt(formInput.rating)
   formInput.rating = submittedRating
+  if(isNaN(formInput.rating)) {
+    delete formInput.rating
+  }
   return formInput
 }
 

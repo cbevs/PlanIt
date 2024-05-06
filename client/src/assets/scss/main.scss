@@ -28,7 +28,7 @@ body {
   font-size: 30px;
 }
 
-.sign-in-page, .registration-div, .planet-list, .planet-show{
+.sign-in-page, .registration-div, .planet-list, .planet-show, .edit-planet-page {
   margin: 0 auto;
   text-align: center;
   background-color: #fff;
@@ -77,22 +77,23 @@ h4 {
 
 .sign-state-button {
   margin-right: 10px;
-  color: #fff;
 }
+
 .submit-form-button {
   border: none;
-  color: #fff;
   padding: 10px;
 }
 
-.authentication-button, .sign-state-button, .submit-form-button { 
+.authentication-button, .sign-state-button, .submit-form-button, .edit-button, .clear-button, .delete-button { 
   background-color: #800080;
   border-radius: 10px;
+  color: #fff;
 }
 
-.authentication-button:hover, .sign-state-button:hover, .submit-form-button:hover {
+.authentication-button:hover, .sign-state-button:hover, .submit-form-button:hover, .edit-button:hover, .clear-button:hover, .delete-button:hover {
   background-color: #863a86;
   color: #fff;
+  cursor: pointer;
 }
 
 .planet-image {
@@ -122,4 +123,33 @@ h4 {
   background-color: #d4d4d4;
   padding: 10px;
   margin-bottom: 5px;
+}
+
+.new-review-form {
+  width: 75%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.review {
+  padding: 10px;
+  border: 2px solid #800080;
+  border-radius: 25px;
+  margin: 10px;
+}
+
+.clear-button {
+  padding: 10px 25px;
+  display: inline-block;
+}
+
+.edit-button {
+  display: inline-block;
+  padding: 10px 5px;
+}
+
+.delete-button {
+  margin-left: 5px;
+  padding: 14px 5px;
+  display: inline-block;
 }
