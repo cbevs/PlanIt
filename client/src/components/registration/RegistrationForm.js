@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Dropzone from "react-dropzone"
 import config from "../../config";
-
 import ErrorList from "../layout/ErrorList"
 import FormError from "../layout/FormError"
 import translateServerErrors from "../../services/translateServerErrors"
@@ -72,6 +71,7 @@ const RegistrationForm = () => {
     newUserBody.append("email", userPayload.email)
     newUserBody.append("password", userPayload.password)
     newUserBody.append("image", userPayload.image)
+
     try {
       if (validateInput(userPayload)) {
         const response = await fetch("/api/v1/users", {

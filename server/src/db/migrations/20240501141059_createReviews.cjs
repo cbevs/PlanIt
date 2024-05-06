@@ -8,10 +8,24 @@
 exports.up = async (knex) => {
   return knex.schema.createTable("reviews", (table) => {
       table.bigIncrements("id")
+
       table.string("body")
       table.integer("rating").notNullable()
-      table.bigInteger("planetId").unsigned().notNullable().index().references("planets.id")
-      table.bigInteger("userId").unsigned().notNullable().index().references("users.id")
+      table.bigInteger("planetId")
+        .unsigned()
+        .notNullable()
+        .index()
+        .references("planets.id")
+
+      table.bigInteger("userId")
+        .unsigned()
+        .notNullable()
+        .index()
+        .references("users.id")
+
+      table.integer("upVotes")
+      table.integer("downVotes")
+
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
       table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
   })
