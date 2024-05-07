@@ -54,7 +54,7 @@ const PlanetShow = (props) => {
       <img src={planet.imageUrl} className="planet-image" alt="image of planet" />
       <h1>{planet.name}</h1>
       <h4>{planet.description}</h4>
-      <ReviewList reviews={planet.reviews} />
+      <ReviewList reviews={planet.reviews} user={props.user} />
       { props.user ? <NewReviewForm postReview={postReview} /> : null }
     </div>
   )

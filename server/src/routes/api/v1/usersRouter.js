@@ -17,6 +17,7 @@ usersRouter.post("/",uploadImage.single("image"), async (req, res) => {
       return res.status(201).json({ user: persistedUser });
     });
   } catch (error) {
+    console.log(error)
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data });
     }

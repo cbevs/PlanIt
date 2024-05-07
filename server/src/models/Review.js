@@ -1,6 +1,7 @@
 const Model = require("./Model")
 
 class Review extends Model {
+
   static get tableName() {
     return "reviews"
   }

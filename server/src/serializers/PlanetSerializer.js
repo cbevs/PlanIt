@@ -14,9 +14,10 @@ class PlanetSerializer {
   static async getPlanetWithReviews(planet) {
     const serializedPlanet = PlanetSerializer.getPlanetDetails(planet)
     const reviews = await planet.$relatedQuery("reviews")
-    serializedPlanet.reviews = reviews.map((review) => {
-      return ReviewSerializer.getReviewDetails(review)
-    })
+    serializedPlanet.reviews = await Promise.all(reviews.map(async (review) => {
+        return await ReviewSerializer.getReviewDetails(review)
+      }),
+    )
     return serializedPlanet
   }
 }

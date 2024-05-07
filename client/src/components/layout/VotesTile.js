@@ -11,6 +11,8 @@ Total number of down votes
 information we send in the post request:
 voteValue (up or down)
 userId
+
+
 total upVotes
 total downVotes
 
@@ -19,6 +21,7 @@ query the votes table for the user's vote direction, using that in the onClick e
 query votes table; look to see if anything is returned when we ask is there a vote that has the userId reviewId already?
 
 State:
+
 [upVotes, setUpVotes]
 [downVotes, setDownVotes]
 
@@ -52,3 +55,14 @@ downArrow onClick => {
     setDownVotes(downVotes - 1)
   }
 }
+
+// voteRecord = await Votes.query().where("reviewId" = body.reviewId).where("userId" = body.userId)
+
+// if(!voteRecord) if the vote doesn't exist
+//	{
+//  newVote = Votes.query().insert({Voteinformation})
+//  }
+
+//else {
+//perform logic determining what to do
+//}
