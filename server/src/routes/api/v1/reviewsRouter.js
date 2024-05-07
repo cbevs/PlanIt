@@ -33,9 +33,11 @@ reviewsRouter.patch("/:id", async (req, res) => {
 reviewsRouter.delete("/:id", async (req,res) => {
   const reviewId = req.params.id
   try{
+    await Vote.query().delete().where("reviewId", reviewId)
     await Review.query().deleteById(reviewId)
     return res.status(200).json({})
   } catch (error){
+    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })

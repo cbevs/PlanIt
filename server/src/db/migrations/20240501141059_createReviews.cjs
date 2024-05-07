@@ -23,9 +23,6 @@ exports.up = async (knex) => {
         .index()
         .references("users.id")
 
-      table.integer("upVotes")
-      table.integer("downVotes")
-
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
       table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
   })
