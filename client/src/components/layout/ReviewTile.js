@@ -30,8 +30,12 @@ const ReviewTile = ({ review, user, setPlanet, planet }) => {
   }
   return (
     <div className="review">
-      <li>{review.body}</li>
-      <li>Rating: {review.rating}</li>
+      <li>
+        {review.body}
+      </li>
+      <li>
+        Rating: {review.rating}
+      </li>
       <li className="vote">
         Up votes: {review.voteCount.upVotes}
         <i onClick={voteClick} className="fas fa-arrow-up upVote" data-vote="1"></i>
