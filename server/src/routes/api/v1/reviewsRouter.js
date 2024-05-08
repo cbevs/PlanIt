@@ -1,5 +1,5 @@
 import express from "express"
-import { Review } from "../../../models/index.js"
+import { Review, Vote } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import { ValidationError } from "objection"
 const reviewsRouter = new express.Router()

@@ -1,9 +1,9 @@
 import express from "express"
 import { Vote, Review } from "./../../../models/index.js"
 
-
 const votesRouter = new express.Router()
 votesRouter.post("/", async (req, res) => {
+
   const { currentReviewId,  voteDirection } = req.body
   let currentReviewIdInteger = parseInt(currentReviewId)
   let currentUserIdInteger = parseInt(req.user.id)
@@ -28,7 +28,7 @@ votesRouter.post("/", async (req, res) => {
     
     const voteTotals = await review.$voteCount()
     
-    res.status(200).json({ currentUserVoteValue: voteTotals })
+    res.status(200).json({ voteCount: voteTotals })
   } catch (error) {
     console.log(error)
     res.status(500).json({})

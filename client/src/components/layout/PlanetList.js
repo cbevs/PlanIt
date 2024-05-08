@@ -35,8 +35,10 @@ const PlanetList = (props) => {
   })
 
   return (
-    <div className="grid-x align-center planet-list">
-      {planetsArray}
+    <div className="planet-list">
+      <div className="grid-x align-center">
+        {planetsArray}
+      </div>
       {props.user ? <NewPlanetForm setPlanets={setPlanets} planets={planets} /> : null}
     </div>
   )

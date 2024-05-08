@@ -8,7 +8,7 @@ import translateServerErrors from "../../services/translateServerErrors"
 const PlanetShow = (props) => {
   const [planet, setPlanet] = useState({
     name: "",
-    reviews: [{ voteCount: []}]
+    reviews: []
   })
   const [errors, setErrors] = useState([])
 
@@ -52,7 +52,6 @@ const PlanetShow = (props) => {
       }
       const responseBody = await response.json()
       const newReview = responseBody.review
-      console.log(newReview)
       setPlanet({ ...planet, reviews: [...planet.reviews, newReview] })
       setErrors([])
     } catch (error) {
@@ -70,7 +69,6 @@ const PlanetShow = (props) => {
       <h1>{planet.name}</h1>
       <h4>{planet.description}</h4>
       <ReviewList reviews={planet.reviews} user={props.user} planet={planet} setPlanet={setPlanet} />
-
       { props.user ? <NewReviewForm postReview={postReview} /> : null }
       <ErrorList errors={errors} />
     </div>
