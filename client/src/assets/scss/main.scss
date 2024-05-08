@@ -156,14 +156,6 @@ h4 {
   display: inline-block;
 }
 
-.upVote:hover, .downVote:hover {
+.up-vote:hover, .down-vote:hover {
   cursor: pointer;
-}
-
-.upVoteColor {
-  color: #e30000;
-}
-
-.downVoteColor {
-  color: #0022e3;
 }
