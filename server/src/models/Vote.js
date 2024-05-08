@@ -1,6 +1,7 @@
 const Model = require("./Model")
 
 class Vote extends Model {
+
   static get tableName() {
     return "votes"
   }

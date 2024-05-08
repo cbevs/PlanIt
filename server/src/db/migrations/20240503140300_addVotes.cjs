@@ -19,7 +19,7 @@ exports.up = async (knex) => {
       .unsigned()
       .notNullable()
       .index()
-      .references("review.id")
+      .references("reviews.id")
 
     table.integer("voteValue").defaultTo(0)
 

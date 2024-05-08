@@ -1,8 +1,28 @@
 const Model = require("./Model")
 
 class Review extends Model {
+
   static get tableName() {
     return "reviews"
+  }
+
+  async $voteCount() {
+    
+    let upVotes = 0
+    let downVotes = 0
+
+    const votes = await this.$relatedQuery("votes")
+
+    votes.forEach((vote) => {
+      if (vote.voteValue === 1) {
+        upVotes++
+      } 
+      if (vote.voteValue === -1){
+        downVotes++
+      }
+    })
+    
+    return { upVotes, downVotes}
   }
 
   static get jsonSchema() {

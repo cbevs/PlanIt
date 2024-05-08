@@ -56,7 +56,7 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
     <div>
       <h4>Add a New Planet to Review</h4>
       <ErrorList errors={errors} />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="new-planet-form">
         <label>Name:
           <input 
             className="form-input"

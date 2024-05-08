@@ -13,6 +13,7 @@ planetReviewsRouter.post("/", async (req, res) => {
   const { planetId } = req.params
   try {
     const review = await Review.query().insertAndFetch({ body, planetId, userId, rating })
+    review.voteCount = { upVotes: 0, downVotes: 0 }
     return res.status(200).json({ review: review })
   } catch (error) {
     console.log(error.data)

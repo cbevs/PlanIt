@@ -1,10 +1,13 @@
 class ReviewSerializer {
-  static getReviewDetails(Review) {
+  static async getReviewDetails(review) {
     const allowedAttributes = ["id", "body", "planetId", "userId", "rating"]
     let serializedReview = {}
     for (const attribute of allowedAttributes) {
-      serializedReview[attribute] = Review[attribute]
+      serializedReview[attribute] = review[attribute]
     }
+
+    serializedReview.voteCount = await review.$voteCount()
+  
     return serializedReview
   }
 }
