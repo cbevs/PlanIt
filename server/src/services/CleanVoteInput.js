@@ -3,7 +3,7 @@ const CleanVoteInput = (vote) => {
     if (vote[field] === "") {
       delete vote[field]
     }
-    console.log(vote.userId)
+    (vote.userId)
     const userIdInteger = parseInt(vote.userId)
     const reviewIdInteger = parseInt(vote.userId)
     vote.userId = userIdInteger
