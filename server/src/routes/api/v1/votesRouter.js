@@ -1,7 +1,6 @@
 import express from "express"
 import { Vote, Review } from "./../../../models/index.js"
 
-
 const votesRouter = new express.Router()
 votesRouter.post("/", async (req, res) => {
   const { currentReviewId,  voteDirection } = req.body

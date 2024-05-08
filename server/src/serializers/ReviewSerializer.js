@@ -7,7 +7,6 @@ class ReviewSerializer {
     }
 
     serializedReview.voteCount = await review.$voteCount()
-  
     return serializedReview
   }
 }
