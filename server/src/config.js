@@ -14,11 +14,13 @@ const development = {
 
 const test = { ...development }
 
+const e2e = { ...development }
+
 const production = {
   ...development,
   s3Bucket: { name: process.env.S3_BUCKET_PRODUCTION }
 }
 
-const config = { development, test, production }
+const config = { development, test, production, e2e }
 
 export default config[getNodeEnv()]
