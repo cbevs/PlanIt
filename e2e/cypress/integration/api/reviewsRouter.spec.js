@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
 
-context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
+context("HTTP requests to /api/v1/reviewsRouter" , () => {
 
-  describe("If I send a GET request to /reviews/:id", () => {
+  describe("GET /reviews/:id", () => {
     let reviewIdUrl
     const initialPlanet = { name: "Mercury", description: "Very close to the sun" }   
     const initialUsers = [{ email: "test@testsuite.com", cryptedPassword: "12345"}, { email: "test2@testsuite.com", cryptedPassword: "54321" }, { email: "test3@testsuite.com", cryptedPassword: "78965" }]
@@ -10,7 +10,7 @@ context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
     let userId2
     let userId3
 
-    before(() => { 
+    beforeEach(() => { 
       cy.task("db:truncate", "Planet")
       cy.task("db:truncate", "User")
       cy.task("db:truncate", "Review")
@@ -39,20 +39,20 @@ context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
        })
     })
 
-    it("I will receive the correct response type", () => {
+    it("When the header type is correct", () => {
       cy.request(reviewIdUrl)
       .its("headers")
       .its("content-type")
       .should("include", "application/json")
     })
   
-    it("I will receive the correct status code", () => {
+    it("When the response status is correct", () => {
       cy.request(reviewIdUrl)
       .its("status")
       .should("be.equal", 200)
     })
 
-    it("I will receive information on the review with the Id from the URL", () => {
+    it("The review will show the correct properties at its URL/:id path", () => {
       cy.request(reviewIdUrl)
       .its("body")
       .its("review")
@@ -83,7 +83,7 @@ context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
     })
   })
 
-  describe("If I send a PATCH request to /reviews/:id", () => {
+  describe("PATCH /reviews/:id", () => {
     let reviewIdUrl
     let reviewId
     const initialPlanet = { name: "Mercury", description: "Very close to the sun" }   
@@ -92,7 +92,7 @@ context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
     let userId2
     let userId3
   
-    before(() => { 
+    beforeEach(() => { 
       cy.task("db:truncate", "Planet")
       cy.task("db:truncate", "User")
       cy.task("db:truncate", "Review")
@@ -121,46 +121,61 @@ context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
        })
     })
 
-      it("I will receive the correct status code", () => {
-        cy.request({
-          method: "PATCH",
-          url: reviewIdUrl,
-          body: { reviewId: reviewId, body: "I had a pleasant trip", rating: 3 }
-        })
-        .its("status").should("be.equal", 200)
+    it("When the response status is correct", () => {
+      cy.request({
+        method: "PATCH",
+        url: reviewIdUrl,
+        body: { reviewId: reviewId, body: "I had a pleasant trip", rating: 3 }
       })
+      .its("status").should("be.equal", 200)
+     })
 
-      it("I will receive the updated body and rating", () => {
-        cy.request({
-          method: "PATCH",
-          url: reviewIdUrl,
-          body: { reviewId: reviewId, body: "I had a pleasant trip", rating: 3 }
-        })
-        cy.request(reviewIdUrl)
-        .its("body")
-        .its("review")
-        .should("have.property", "body", "I had a pleasant trip")
-        cy.request(reviewIdUrl)
-        .its("body")
-        .its("review")
-        .should("have.property", "rating", 3)
+    it("When a review is updated, it's updates persist in the database", () => {
+      cy.request({
+        method: "PATCH",
+        url: reviewIdUrl,
+        body: { reviewId: reviewId, body: "I had a pleasant trip", rating: 3 }
       })
+      cy.request(reviewIdUrl)
+      .its("body")
+      .its("review")
+      .should("have.property", "body", "I had a pleasant trip")
+      cy.request(reviewIdUrl)
+      .its("body")
+      .its("review")
+      .should("have.property", "rating", 3)
+    })
 
+    describe("When a PATCH has a bad/malformed request body" , () => {
       it("Validation errors will show that rating is a required property", () => {
         cy.request({
           method: "PATCH",
           url: reviewIdUrl,
-          body: { reviewId: reviewId, body: "I have a pleasant trip" },
+          body: { reviewId: reviewId, body: "I had a pleasant trip" },
           failOnStatusCode: false
         }).should((response) => {
           const errorsForNameField = response.body.errors.rating[0]
           expect(errorsForNameField.keyword).to.be.equal("required")
           expect(errorsForNameField.message).to.be.equal("must have required property 'rating'")
+         })
+       })
+
+       it("The edited review will not be persisted into the database", () => {
+        cy.request({
+          method: "PATCH",
+          url: reviewIdUrl,
+          body: { reviewId: reviewId, body: "I had a pleasant trip", },
+          failOnStatusCode: false
         })
-      })
+        cy.request(reviewIdUrl)
+        .its("body")
+        .its("review")
+        .should("have.property", "body", "It was very toasty my whole stay. Great for a winter getaway!")
+       })
+     })
   })
 
-  describe("If I send a DELETE request to /reviews/:id", () => {
+  describe("DELETE /reviews/:id", () => {
     let reviewIdUrl
     let reviewId
     const initialPlanet = { name: "Mercury", description: "Very close to the sun" }   
@@ -200,7 +215,7 @@ context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
        })
     })
 
-    it("I will receive the correct status code", () => {
+    it("When the response status is correct", () => {
       cy.request({
         method: "DELETE",
         url: reviewIdUrl,
@@ -209,7 +224,7 @@ context("As a user sending HTTP requests to /api/v1/reviewsRouter" , () => {
       .its("status").should("be.equal", 200)
     })
 
-    it("I will no longer see the review in the planet review array", () => {
+    it("When deleted, the review will no longer exist on the planet review array", () => {
       cy.request({
         method: "DELETE",
         url: reviewIdUrl,

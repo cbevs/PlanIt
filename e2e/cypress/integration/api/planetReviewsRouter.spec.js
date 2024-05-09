@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
 
-context("As a user sending HTTP requests to /api/v1/planetReviewsRouter", () => {
+context("POST /api/v1/planetReviewsRouter", () => {
 
-  describe("If I send a POST request to /planets/:planetId/reviews", () => {
+  describe("When a POST request is sent to /planets/:planetId/reviews", () => {
     
     const initialPlanet = { name: "Mercury", description: "Very close to the sun" }   
     const initialUser = { email: "test@testsuite.com", password: "12345" }
@@ -27,7 +27,7 @@ context("As a user sending HTTP requests to /api/v1/planetReviewsRouter", () => 
       })
     })
 
-    it("I will receive the correct status code", () => {
+    it("When the request body is valid", () => {
       cy.request({
         method: "POST",
         url: reviewPostUrl,
@@ -36,7 +36,7 @@ context("As a user sending HTTP requests to /api/v1/planetReviewsRouter", () => 
       .its("status").should("be.equal", 200)
     })
 
-    it("The new review will persist into the database", () => {
+    it("The new review will persist into the database if valid", () => {
       cy.request({
         method: "POST",
         url: reviewPostUrl,
@@ -65,16 +65,33 @@ context("As a user sending HTTP requests to /api/v1/planetReviewsRouter", () => 
       })
     })
 
-    it("I will get a validation error if the review does not have a rating", () => {
-      cy.request({
-        method: "POST",
-        url: reviewPostUrl,
-        body: { body: "A bit too toasty for my liking", planetId: planetId, userId: userId },
-        failOnStatusCode: false
-      }).should((response) => {
-        const errorsForNameField = response.body.errors.rating[0]
-        expect(errorsForNameField.keyword).to.be.equal("required")
-        expect(errorsForNameField.message).to.be.equal("must have required property 'rating'")
+    describe("When a POST is sent with a bad/malformed request body", () => {
+      
+      it("A user will get a validation error if the review does not have a rating", () => {
+        cy.request({
+          method: "POST",
+          url: reviewPostUrl,
+          body: { body: "A bit too toasty for my liking", planetId: planetId, userId: userId },
+          failOnStatusCode: false
+        }).should((response) => {
+          const errorsForNameField = response.body.errors.rating[0]
+          expect(errorsForNameField.keyword).to.be.equal("required")
+          expect(errorsForNameField.message).to.be.equal("must have required property 'rating'")
+        })
+      })
+
+      it("A review will not be persisted to the database if there are validation errors", () => {
+        cy.request({
+          method: "POST",
+          url: reviewPostUrl,
+          body: { body: "A bit too toasty for my liking", planetId: planetId, userId: userId },
+          failOnStatusCode: false
+        })
+        cy.request(`/api/v1/planets/${planetId}`)
+        .its("body")
+        .its("planet")
+        .its("reviews")
+        .should("have.length", 0)
       })
     })
   })

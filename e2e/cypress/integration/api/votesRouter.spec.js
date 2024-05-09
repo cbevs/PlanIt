@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
 
-context("As a user sending HTTP requests to /api/v1/votesRouter" , () => {
+context("HTTP requests to /api/v1/votesRouter" , () => {
 
-  describe("If I send a POST request to /votes", () => {
+  describe("POST /votes", () => {
     
     const initialPlanet = { name: "Mercury", description: "Very close to the sun" }   
     const initialUser = { email: "test@testsuite.com", password: "12345" }
@@ -29,7 +29,7 @@ context("As a user sending HTTP requests to /api/v1/votesRouter" , () => {
        })
     })
 
-    it("I will receive the correct status code", () => {
+    it("When the response status is correct", () => {
       cy.request({
         method: "POST",
         url: "/api/v1/user-sessions",
@@ -43,7 +43,7 @@ context("As a user sending HTTP requests to /api/v1/votesRouter" , () => {
       .its("status").should("be.equal", 200)
     })
 
-    it("A POST will update the vote record on a review", () => {
+    it("When a vote is entered by a user", () => {
       cy.request({
         method: "POST",
         url: "/api/v1/user-sessions",
@@ -62,7 +62,7 @@ context("As a user sending HTTP requests to /api/v1/votesRouter" , () => {
       .should("be.equal", 1)
     })
 
-    it("If a vote already exists for me, my vote will be removed upon voting the same direction", () => {
+    it("If a vote already exists for a user, it will be removed upon them voting the same direction", () => {
       cy.request({
         method: "POST",
         url: "/api/v1/user-sessions",
