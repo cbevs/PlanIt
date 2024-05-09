@@ -36,9 +36,9 @@ const ReviewTile = ({ review, user, setPlanet, planet }) => {
   let upVotedClass = ""
   let downVotedClass = ""
   if (currentUserVoteValue === 1) {
-    upVotedClass = "upVoteSelected"
+    upVotedClass = "up-vote-selected"
   } else if (currentUserVoteValue === -1) {
-    downVotedClass = "downVoteSelected"
+    downVotedClass = "down-vote-selected"
   }
 
   return (
