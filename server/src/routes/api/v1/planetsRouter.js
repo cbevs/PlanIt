@@ -19,6 +19,7 @@ planetsRouter.get("/", async (req, res) => {
     })
     res.status(200).json({ planets: serializedPlanets })
   } catch (err) {
+    console.log(err)
     res.status(500).json({ errors: err })
   }
 })
@@ -43,9 +44,8 @@ planetsRouter.post("/", async (req, res) => {
 
   try {
     const newPlanetEntry = await Planet.query().insertAndFetch({ name, description })
-    res.status(200).json({ planet: newPlanetEntry })
+    res.status(201).json({ planet: newPlanetEntry })
   } catch (error) {
-    console.log(error)
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
     } else {

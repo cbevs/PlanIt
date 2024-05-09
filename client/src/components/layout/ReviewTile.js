@@ -47,11 +47,19 @@ const ReviewTile = ({ review, user, setPlanet, planet }) => {
       <li>Rating: {review.rating}</li>
       <li className="vote">
         Up votes: {review.voteCount.upVotes}
+<<<<<<< HEAD
         <i onClick={voteClick} className={`fas fa-arrow-up upVote ${upVotedClass}`} data-vote="1"></i>
       </li>
       <li className="vote">
         Down votes: {review.voteCount.downVotes}
         <i onClick={voteClick} className={`fas fa-arrow-down downVote ${downVotedClass}`} data-vote="-1"></i>
+=======
+        <i onClick={voteClick} className="fas fa-arrow-up up-vote" data-vote="1"></i>
+      </li>
+      <li className="vote">
+        Down votes: {review.voteCount.downVotes}
+        <i onClick={voteClick} className="fas fa-arrow-down down-vote" data-vote="-1"></i>
+>>>>>>> e8094b53e9da91890dc6eeb9a16105df094cf8a2
       </li>
       {user ? <ReviewEditButton review={review} user={user} /> : null}
       {user ? (
