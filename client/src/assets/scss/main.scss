@@ -171,15 +171,15 @@ h4 {
   display: inline-block;
 }
 
-.upVote:hover,
-.downVote:hover {
+.up-vote:hover,
+.down-vote:hover {
   cursor: pointer;
 }
 
-.upVoteSelected {
+.up-vote-selected {
   color: #ffa500;
 }
 
-.downVoteSelected {
+.down-vote-selected {
   color: #ff2e2e;
 }
