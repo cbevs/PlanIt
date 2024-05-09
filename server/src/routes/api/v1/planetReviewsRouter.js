@@ -16,7 +16,6 @@ planetReviewsRouter.post("/", async (req, res) => {
     review.voteCount = { upVotes: 0, downVotes: 0 }
     return res.status(200).json({ review: review })
   } catch (error) {
-    console.log(error.data)
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
     } else {

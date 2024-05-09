@@ -8,7 +8,7 @@ const ErrorList = (props) => {
       index++;
       return (
         <li key={index}>
-          {field} {props.errors[field]}
+           {props.errors[field]}
         </li>
       );
     });
