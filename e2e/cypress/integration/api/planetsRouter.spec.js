@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
 
-context("As a user sending HTTP requests to /api/v1/planetsRouter" , () => {
+context("HTTP requests to /api/v1/planetsRouter" , () => {
 
-  describe("If I send a GET request to /planets", () => {
+  describe("GET /planets", () => {
   const initialPlanets = [{ name: "Mercury", description: "Very close to the sun" }, { name: "Mars", description: "Might have water" }]
     
   before(() => { 
@@ -10,20 +10,20 @@ context("As a user sending HTTP requests to /api/v1/planetsRouter" , () => {
     cy.task("db:insert", { modelName: "Planet", json: initialPlanets })
   })
 
-  it("I will receive the correct response type", () => {
+  it("When the header type is correct", () => {
     cy.request("/api/v1/planets")
     .its("headers")
     .its("content-type")
     .should("include", "application/json")
   })
 
-  it("I will receive the correct status code", () => {
+  it("When the response status is correct", () => {
     cy.request("/api/v1/planets")
     .its("status")
     .should("be.equal", 200)
   })
 
-  it("I will get two planets", () => {
+  it("When there are two planets in the database", () => {
     cy.request("/api/v1/planets")
     .its("body")
     .its("planets")
@@ -41,7 +41,7 @@ context("As a user sending HTTP requests to /api/v1/planetsRouter" , () => {
   })
 })
 
-  describe("If I send a GET request to /planets/:id", () => {
+  describe("GET /planets/:id", () => {
     const initialPlanet = { name: "Venus", description: "Gas planet" }
     const initialUser = [{ email: "test@testsuite.com", cryptedPassword: "12345"}, { email: "test2@testsuite.com", cryptedPassword: "54321" }, { email: "test3@testsuite.com", cryptedPassword: "78965" }]
     let showPageUrl
@@ -81,20 +81,20 @@ context("As a user sending HTTP requests to /api/v1/planetsRouter" , () => {
       })
     })
 
-    it("I will receive the correct response type", () => {
+    it("When the header type is correct", () => {
       cy.request(showPageUrl)
       .its("headers")
       .its("content-type")
       .should("include", "application/json")
     })
   
-    it("I will receive the correct status code", () => {
+    it("When the response status is correct", () => {
       cy.request(showPageUrl)
       .its("status")
       .should("be.equal", 200)
     })
   
-    it("I will get the correct planet name", () => {
+    it("The planet will have the correct name", () => {
       cy.request(showPageUrl)
       .its("body")
       .its("planet")
@@ -133,12 +133,12 @@ context("As a user sending HTTP requests to /api/v1/planetsRouter" , () => {
     })
   })
 
-  describe("If I send a POST request to /planets", () => {
+  describe("POST /planets", () => {
     beforeEach(() => { 
       cy.task("db:truncate", "Planet")
     })
 
-    it("I will receive the correct response", () => {
+    it("When the response status is correct", () => {
       cy.request("POST", "/api/v1/planets", { name: "Earth" })
       .its("status")
       .should("equal", 201)
@@ -158,7 +158,7 @@ context("As a user sending HTTP requests to /api/v1/planetsRouter" , () => {
       cy.task("db:truncate", "Planet")
     })
 
-    it("I will receive the correct status code", () => {
+    it("When the response status is unprocessable content (validation error)", () => {
       cy.request({
         method: "POST",
         url: "/api/v1/planets",

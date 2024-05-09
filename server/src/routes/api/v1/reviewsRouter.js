@@ -2,13 +2,15 @@ import express from "express"
 import { Review, Vote } from "../../../models/index.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import { ValidationError } from "objection"
+import ReviewSerializer from "../../../serializers/ReviewSerializer.js"
 const reviewsRouter = new express.Router()
 
 reviewsRouter.get("/:id", async (req,res) => {
   const reviewId = req.params.id
   try {
     const review = await Review.query().findById(reviewId)
-    res.status(200).json({ review: review })
+    const serializedReview = await ReviewSerializer.getReviewDetails(review)
+    res.status(200).json({ review: serializedReview })
   } catch (error) {
     res.status(500).json({ errors: error })
   }
@@ -37,7 +39,6 @@ reviewsRouter.delete("/:id", async (req,res) => {
     await Review.query().deleteById(reviewId)
     return res.status(200).json({})
   } catch (error){
-    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })
