@@ -8,10 +8,10 @@ import translateServerErrors from "../../services/translateServerErrors"
 const PlanetShow = (props) => {
   const [planet, setPlanet] = useState({
     name: "",
-    reviews: []
+    reviews: [
+    ]
   })
   const [errors, setErrors] = useState([])
-
   const params = useParams()
   const planetId = params.id
   const getPlanet = async () => {

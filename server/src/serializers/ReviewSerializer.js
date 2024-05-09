@@ -5,9 +5,8 @@ class ReviewSerializer {
     for (const attribute of allowedAttributes) {
       serializedReview[attribute] = review[attribute]
     }
-
     serializedReview.voteCount = await review.$voteCount()
-  
+    serializedReview.votes = await review.$relatedQuery("votes")
     return serializedReview
   }
 }

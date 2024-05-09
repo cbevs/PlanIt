@@ -1,5 +1,5 @@
 import express from "express"
-import { Planet } from "../../../models/index.js"
+import { Planet, Vote } from "../../../models/index.js"
 import objection from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import planetReviewsRouter from "./planetReviewsRouter.js"
@@ -23,12 +23,14 @@ planetsRouter.get("/", async (req, res) => {
   }
 })
 
+
+
 planetsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
   try {
     const planet = await Planet.query().findById(id)
     const serializedPlanet = await PlanetSerializer.getPlanetWithReviews(planet)
-    return res.status(200).json({ planet: serializedPlanet })
+    return res.status(200).json({ planet: serializedPlanet})
   } catch (error) {
     console.log(error)
     return res.status(500).json({ errors: error })
