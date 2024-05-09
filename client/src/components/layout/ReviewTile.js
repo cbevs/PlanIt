@@ -3,7 +3,6 @@ import ReviewEditButton from "./ReviewEditButton"
 import ReviewDeleteButton from "./ReviewDeleteButton"
 
 const ReviewTile = ({ review, user, setPlanet, planet }) => {
-  const currentUserVoteValue = review.currentUserVote.voteValue
   const voteClick = async (event) => {
     if (user) {
       const reviewBody = {
@@ -33,17 +32,26 @@ const ReviewTile = ({ review, user, setPlanet, planet }) => {
     }
   }
 
+  const currentUserVoteValue = review.currentUserVote.voteValue
+  let upVotedClass = ""
+  let downVotedClass = ""
+  if (currentUserVoteValue === 1) {
+    upVotedClass = "upVoteSelected"
+  } else if (currentUserVoteValue === -1) {
+    downVotedClass = "downVoteSelected"
+  }
+
   return (
     <div className="review">
       <li>{review.body}</li>
       <li>Rating: {review.rating}</li>
       <li className="vote">
         Up votes: {review.voteCount.upVotes}
-        <i onClick={voteClick} className={`fas fa-arrow-up upVote`} data-vote="1"></i>
+        <i onClick={voteClick} className={`fas fa-arrow-up upVote ${upVotedClass}`} data-vote="1"></i>
       </li>
       <li className="vote">
         Down votes: {review.voteCount.downVotes}
-        <i onClick={voteClick} className={`fas fa-arrow-down downVote `} data-vote="-1"></i>
+        <i onClick={voteClick} className={`fas fa-arrow-down downVote ${downVotedClass}`} data-vote="-1"></i>
       </li>
       {user ? <ReviewEditButton review={review} user={user} /> : null}
       {user ? (
