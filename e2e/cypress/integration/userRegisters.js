@@ -19,7 +19,7 @@ describe("As a user visiting the sign in page", () => {
 
       cy.root().submit();
 
-      cy.url().should("eq", `${Cypress.config().baseUrl}/`);
+      cy.url().should("eq", `${Cypress.config().baseUrl}/planets`);
     });
     cy.contains("Sign Out");
   });

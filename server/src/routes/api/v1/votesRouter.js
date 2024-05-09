@@ -30,7 +30,6 @@ votesRouter.post("/", async (req, res) => {
     
     res.status(200).json({ voteCount: voteTotals })
   } catch (error) {
-    console.log(error)
     res.status(500).json({})
   }
 })
