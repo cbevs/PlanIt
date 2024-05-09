@@ -1,3 +1,5 @@
+import { Vote } from "../models/index.js"
+
 class ReviewSerializer {
   static async getReviewDetails(review, currentUser) {
     const allowedAttributes = ["id", "body", "planetId", "userId", "rating"]
@@ -6,12 +8,8 @@ class ReviewSerializer {
       serializedReview[attribute] = review[attribute]
     }
     serializedReview.voteCount = await review.$voteCount()
-    serializedReview.currentUserVote = await review
-      .$relatedQuery("votes")
-      .findOne({ userId: currentUser.id, reviewId: review.id })
-    if (serializedReview.currentUserVote === undefined) {
-      serializedReview.currentUserVote = 0
-    }
+    const currentUserVoteData = await Vote.query().findOne({ userId: currentUser.id, reviewId: review.id })
+    serializedReview.currentUserVote = currentUserVoteData.voteValue
     return serializedReview
   }
 }

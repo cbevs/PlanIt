@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react"
+import React from "react"
 import ReviewEditButton from "./ReviewEditButton"
 import ReviewDeleteButton from "./ReviewDeleteButton"
 
@@ -17,12 +17,13 @@ const ReviewTile = ({ review, user, setPlanet, planet }) => {
       const responseBody = await response.json()
       const newVotes = responseBody.voteCount
       const newVoteValue = responseBody.voteValue
+      console.log(newVoteValue)
       const updatedReviews = planet.reviews.map((existingReview) => {
         if (existingReview.id === review.id) {
           return {
             ...existingReview,
             voteCount: { upVotes: newVotes.upVotes, downVotes: newVotes.downVotes },
-            currentUserVote: { voteValue: newVoteValue },
+            currentUserVote: newVoteValue
           }
         } else {
           return existingReview
@@ -32,7 +33,7 @@ const ReviewTile = ({ review, user, setPlanet, planet }) => {
     }
   }
 
-  const currentUserVoteValue = review.currentUserVote.voteValue
+  const currentUserVoteValue = review.currentUserVote
   let upVotedClass = ""
   let downVotedClass = ""
   if (currentUserVoteValue === 1) {

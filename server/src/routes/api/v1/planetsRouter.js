@@ -32,7 +32,6 @@ planetsRouter.get("/:id", async (req, res) => {
     const serializedPlanet = await PlanetSerializer.getPlanetWithReviews(planet, currentLoggedInUser)
     return res.status(200).json({ planet: serializedPlanet})
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ errors: error })
   }
 })

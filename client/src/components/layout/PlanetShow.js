@@ -24,7 +24,6 @@ const PlanetShow = (props) => {
       const responseBody = await response.json()
       setPlanet(responseBody.planet)
     } catch (err) {
-      console.error(`Error in fetch: ${err.message}`)
     }
   }
 
@@ -54,7 +53,6 @@ const PlanetShow = (props) => {
       setPlanet({ ...planet, reviews: [...planet.reviews, newReview] })
       setErrors([])
     } catch (error) {
-      console.log(error)
       console.error(`Error in fetch: ${error.message}`)
     }
   }
