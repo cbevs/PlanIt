@@ -23,13 +23,12 @@ planetsRouter.get("/", async (req, res) => {
   }
 })
 
-
-
 planetsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
+  const currentLoggedInUser = req.user
   try {
     const planet = await Planet.query().findById(id)
-    const serializedPlanet = await PlanetSerializer.getPlanetWithReviews(planet)
+    const serializedPlanet = await PlanetSerializer.getPlanetWithReviews(planet, currentLoggedInUser)
     return res.status(200).json({ planet: serializedPlanet})
   } catch (error) {
     console.log(error)

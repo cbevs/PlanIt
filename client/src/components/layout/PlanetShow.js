@@ -55,6 +55,7 @@ const PlanetShow = (props) => {
       setPlanet({ ...planet, reviews: [...planet.reviews, newReview] })
       setErrors([])
     } catch (error) {
+      console.log(error)
       console.error(`Error in fetch: ${error.message}`)
     }
   }
