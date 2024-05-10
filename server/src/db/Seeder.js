@@ -9,9 +9,9 @@ class Seeder {
     await User.query().insert({email: "dan@dan.com", cryptedPassword: "111" })
     await User.query().insert({email: "luke@luke.com", cryptedPassword: "111" })
 
-    await Planet.query().insert({name: "Pluto", description: "No longer a planet!"})
-    await Planet.query().insert({name: "Jupiter", description: "Very colorful planet."})
-    await Planet.query().insert({name: "Saturn", description: "Planet with rings!"})
+    await Planet.query().insert({name: "Pluto", description: "No longer a planet!", imageUrl: "https://plan-it-production.s3.us-east-2.amazonaws.com/pluto+(1).png"})
+    await Planet.query().insert({name: "Jupiter", description: "Very colorful planet.", imageUrl: "https://plan-it-production.s3.us-east-2.amazonaws.com/jupiter+(1).png"})
+    await Planet.query().insert({name: "Saturn", description: "Planet with rings!", imageUrl: "https://plan-it-production.s3.us-east-2.amazonaws.com/saturn+(1).png"})
 
 
     const pluto = await Planet.query().findOne({name: "Pluto"})
