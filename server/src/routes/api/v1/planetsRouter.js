@@ -4,6 +4,7 @@ import objection from "objection"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import planetReviewsRouter from "./planetReviewsRouter.js"
 import PlanetSerializer from "../../../serializers/PlanetSerializer.js"
+import uploadImage from "../../../services/uploadImage.js"
 
 const { ValidationError } = objection
 
@@ -35,13 +36,23 @@ planetsRouter.get("/:id", async (req, res) => {
   }
 })
 
-planetsRouter.post("/", async (req, res) => {
-  const { body } = req
-  const formInput = cleanUserInput(body)
-  const { name, description } = formInput
-
+planetsRouter.post("/", uploadImage.single("imageUrl"), async (req, res) => {
   try {
-    const newPlanetEntry = await Planet.query().insertAndFetch({ name, description })
+    const { body } = req
+    let data
+    if (!req.file) {
+      data = {
+        ...body,
+        imageUrl: undefined,
+      }
+    } else {
+      data = {
+        ...body,
+        imageUrl: req.file.location,
+      }
+    }
+    const formInput = cleanUserInput(data)
+    const newPlanetEntry = await Planet.query().insertAndFetch(formInput)
     res.status(201).json({ planet: newPlanetEntry })
   } catch (error) {
     if (error instanceof ValidationError) {
