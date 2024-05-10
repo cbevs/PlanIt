@@ -3,7 +3,7 @@ import ReviewList from "./ReviewList"
 import NewReviewForm from "./NewReviewForm"
 import { useParams } from "react-router-dom"
 import ErrorList from "./ErrorList"
-import translateServerErrors from "../../services/translateServerErrors"
+import translateServerErrors from "../services/translateServerErrors"
 
 const PlanetShow = (props) => {
   const [planet, setPlanet] = useState({

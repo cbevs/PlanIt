@@ -8,11 +8,13 @@ class ReviewSerializer {
       serializedReview[attribute] = review[attribute]
     }
     serializedReview.voteCount = await review.$voteCount()
-    const currentUserVoteData = await Vote.query().findOne({ userId: currentUser.id, reviewId: review.id })
-    if (currentUserVoteData) {
-      serializedReview.currentUserVote = currentUserVoteData.voteValue
-    } else {
-      serializedReview.currentUserVote = null
+    if(currentUser){
+        const currentUserVoteData = await Vote.query().findOne({ userId: currentUser.id, reviewId: review.id })
+      if (currentUserVoteData) {
+        serializedReview.currentUserVote = currentUserVoteData.voteValue
+      } else {
+        serializedReview.currentUserVote = null
+      }
     }
     return serializedReview
   }
