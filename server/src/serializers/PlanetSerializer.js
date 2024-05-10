@@ -1,4 +1,3 @@
-// import { Review } from "../models"
 import ReviewSerializer from "./ReviewSerializer.js"
 
 class PlanetSerializer {
@@ -11,12 +10,13 @@ class PlanetSerializer {
     return serializedPlanet
   }
 
-  static async getPlanetWithReviews(planet) {
+  static async getPlanetWithReviews(planet, currentUser) {
     const serializedPlanet = PlanetSerializer.getPlanetDetails(planet)
     const reviews = await planet.$relatedQuery("reviews")
-    serializedPlanet.reviews = await Promise.all(reviews.map(async (review) => {
-        return await ReviewSerializer.getReviewDetails(review)
-      }),
+    serializedPlanet.reviews = await Promise.all(
+      reviews.map(async (review) => {
+        return await ReviewSerializer.getReviewDetails(review, currentUser)
+      })
     )
     return serializedPlanet
   }
