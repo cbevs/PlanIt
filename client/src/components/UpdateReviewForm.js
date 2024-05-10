@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Redirect } from "react-router-dom"
 import ErrorList from "./ErrorList.js"
-import translateServerErrors from "../../services/translateServerErrors.js"
+import translateServerErrors from "../services/translateServerErrors.js"
 
 const updateReviewForm = (props) => {
   const [errors, setErrors] = useState([])

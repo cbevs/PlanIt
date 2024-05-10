@@ -8,10 +8,11 @@ import getCurrentUser from "../services/getCurrentUser"
 
 import RegistrationForm from "./registration/RegistrationForm"
 import SignInForm from "./authentication/SignInForm"
-import TopBar from "./layout/TopBar"
-import PlanetList from "./layout/PlanetList"
-import PlanetShow from "./layout/PlanetShow"
-import UpdateReviewForm from "./layout/UpdateReviewForm"
+import TopBar from "./TopBar"
+import PlanetList from "./PlanetList"
+import PlanetShow from "./PlanetShow"
+import UpdateReviewForm from "./UpdateReviewForm"
+import Footer from "./Footer"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -45,6 +46,7 @@ const App = (props) => {
         </Route>
         <Route exact path="/reviews/:id/edit" component={UpdateReviewForm}/>
       </Switch>
+      <Footer />
     </Router>
   )
 }

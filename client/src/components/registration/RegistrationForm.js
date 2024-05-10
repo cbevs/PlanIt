@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Dropzone from "react-dropzone"
 import config from "../../config";
-import ErrorList from "../layout/ErrorList"
-import FormError from "../layout/FormError"
+import ErrorList from "../ErrorList"
+import FormError from "../FormError"
 import translateServerErrors from "../../services/translateServerErrors"
 
 const RegistrationForm = () => {
@@ -79,8 +79,8 @@ const RegistrationForm = () => {
           headers: new Headers({
             "Accept": "image/jpeg"
           }),
-          body: newUserBody,
-        });
+          body: newUserBody
+        })
         if (!response.ok) {
           if (response.status === 422) {
             const body = await response.json()

@@ -37,8 +37,9 @@ body {
   text-align: center;
   background-color: #fff;
   margin-top: 20px;
+  margin-bottom: 20px;
   width: 60%;
-  height: 100vh;
+  height: 100%;
   border-radius: 10px;
   font-family: "Ubuntu", "Arial", sans-serif;
 }
@@ -64,6 +65,12 @@ h4 {
 }
 
 .top-bar ul {
+  background-color: #ffa500;
+}
+
+.footer {
+  padding: 20px;
+  height: 30px;
   background-color: #ffa500;
 }
 
@@ -121,6 +128,7 @@ h4 {
   width: 75%;
   margin: 20px auto;
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .planet-list-image {

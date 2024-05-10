@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import translateServerErrors from "../../services/translateServerErrors.js"
+import translateServerErrors from "../services/translateServerErrors.js"
 import ErrorList from "./ErrorList.js"
 import Dropzone from "react-dropzone"
 
