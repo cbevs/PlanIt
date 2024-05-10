@@ -17,7 +17,6 @@ const ReviewTile = ({ review, user, setPlanet, planet }) => {
       const responseBody = await response.json()
       const newVotes = responseBody.voteCount
       const newVoteValue = responseBody.voteValue
-      console.log(newVoteValue)
       const updatedReviews = planet.reviews.map((existingReview) => {
         if (existingReview.id === review.id) {
           return {

@@ -16,7 +16,7 @@ class PlanetSerializer {
     serializedPlanet.reviews = await Promise.all(
       reviews.map(async (review) => {
         return await ReviewSerializer.getReviewDetails(review, currentUser)
-      }),
+      })
     )
     return serializedPlanet
   }

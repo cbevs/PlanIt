@@ -24,6 +24,7 @@ const PlanetShow = (props) => {
       const responseBody = await response.json()
       setPlanet(responseBody.planet)
     } catch (err) {
+      console.error(err)
     }
   }
 
