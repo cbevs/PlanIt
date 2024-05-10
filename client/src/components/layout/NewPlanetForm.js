@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import translateServerErrors from "../../services/translateServerErrors.js"
 import ErrorList from "./ErrorList.js"
+import Dropzone from "react-dropzone"
 
 const NewPlanetForm = ({ planets, setPlanets }) => {
-  const [newPlanet, setNewPlanet] = useState({ name: "", description: "" })
+  const [newPlanet, setNewPlanet] = useState({ name: "", description: "", imageUrl: {} })
   const[errors, setErrors] = useState([])
 
   const handleInputChange = (event) => {
@@ -15,10 +16,22 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    postPlanet(newPlanet)
+    const newPlanetBody = new FormData()
+    newPlanetBody.append("name", newPlanet.name)
+    newPlanetBody.append("description", newPlanet.description)
+    newPlanetBody.append("imageUrl", newPlanet.imageUrl)
+    postPlanet(newPlanetBody)
     setNewPlanet({
       name: "",
       description: "",
+      imageUrl: {}
+    })
+  }
+
+  const handleProfileImageUpload = (acceptedImage) => {
+    setNewPlanet({
+      ...newPlanet,
+      imageUrl: acceptedImage[0]
     })
   }
 
@@ -27,9 +40,9 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
       const response = await fetch(`/api/v1/planets`, {
         method: "POST",
         headers: new Headers({
-          "Content-Type": "application/json",
+          "Accept": "image/jpeg",
         }),
-        body: JSON.stringify(newPlanetData),
+        body: newPlanetData
       })
       if (!response.ok) {
         if (response.status === 422) {
@@ -75,6 +88,16 @@ const NewPlanetForm = ({ planets, setPlanets }) => {
             value={newPlanet.description}
           />
         </label>
+        <Dropzone onDrop={handleProfileImageUpload}>
+          {({getRootProps, getInputProps}) => (
+            <section className="drag-and-drop">
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Upload New Planet Image Here - drag and drop or click to upload</p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
         <input type="submit" className="submit-form-button" />
       </form>
     </div>
