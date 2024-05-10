@@ -11,7 +11,6 @@ const PlanetShow = (props) => {
     reviews: []
   })
   const [errors, setErrors] = useState([])
-
   const params = useParams()
   const planetId = params.id
   const getPlanet = async () => {
@@ -25,7 +24,7 @@ const PlanetShow = (props) => {
       const responseBody = await response.json()
       setPlanet(responseBody.planet)
     } catch (err) {
-      console.error(`Error in fetch: ${err.message}`)
+      console.error(err)
     }
   }
 

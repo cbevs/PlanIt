@@ -28,8 +28,8 @@ planetsRouter.get("/:id", async (req, res) => {
   const id = req.params.id
   try {
     const planet = await Planet.query().findById(id)
-    const serializedPlanet = await PlanetSerializer.getPlanetWithReviews(planet)
-    return res.status(200).json({ planet: serializedPlanet })
+    const serializedPlanet = await PlanetSerializer.getPlanetWithReviews(planet, req.user)
+    return res.status(200).json({ planet: serializedPlanet})
   } catch (error) {
     return res.status(500).json({ errors: error })
   }
@@ -39,7 +39,6 @@ planetsRouter.post("/", async (req, res) => {
   const { body } = req
   const formInput = cleanUserInput(body)
   const { name, description } = formInput
-
   try {
     const newPlanetEntry = await Planet.query().insertAndFetch({ name, description })
     res.status(201).json({ planet: newPlanetEntry })
